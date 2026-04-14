@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Funny Proposal</title>
 
 <style>
   body {
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
     background: linear-gradient(135deg, #ffdde1, #ee9ca7);
     display: flex;
     justify-content: center;
@@ -19,21 +20,23 @@
   .box {
     text-align: center;
     background: white;
-    padding: 40px;
+    padding: 30px;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    width: 350px;
+    width: 90%;
+    max-width: 420px;
     position: relative;
   }
 
   .question {
-    font-size: 20px;
-    margin-bottom: 20px;
-    min-height: 60px;
+    font-size: 28px;
+    margin-bottom: 25px;
+    min-height: 80px;
+    font-weight: bold;
   }
 
   .answer {
-    font-size: 22px;
+    font-size: 30px;
     color: green;
     font-weight: bold;
     margin-top: 20px;
@@ -41,18 +44,19 @@
   }
 
   button {
-    padding: 10px 20px;
+    padding: 14px 22px;
     border: none;
     color: white;
-    font-size: 16px;
-    border-radius: 10px;
+    font-size: 20px;
+    border-radius: 12px;
     cursor: pointer;
-    margin: 5px;
+    margin: 8px;
   }
 
   .yesBtn {
     background: hotpink;
-    font-size: 18px;
+    font-size: 22px;
+    box-shadow: 0 0 15px hotpink;
   }
 
   .noBtn {
@@ -60,42 +64,15 @@
     position: absolute;
     left: 200px;
     top: 120px;
-    font-size: 16px;
+    font-size: 18px;
+    color: white;
+    box-shadow: 0 4px 12px rgba(126, 200, 227, 0.6);
   }
 
   .yesBtn:hover {
     background: deeppink;
   }
 
-  /* 📱 MOBILE RESPONSIVE */
-  @media (max-width: 600px) {
-
-    .box {
-      width: 90%;
-      padding: 25px;
-    }
-
-    .question {
-      font-size: 26px;
-    }
-
-    .answer {
-      font-size: 28px;
-    }
-
-    button {
-      font-size: 20px;
-      padding: 14px 25px;
-    }
-
-    .yesBtn {
-      font-size: 22px;
-    }
-
-    .noBtn {
-      font-size: 18px;
-    }
-  }
 </style>
 </head>
 
@@ -108,7 +85,7 @@
 
   <!-- 6 NO buttons -->
   <button class="noBtn">Matar Paneer</button>
-  <button class="noBtn">Palak Paneer😏</button>
+  <button class="noBtn">Palak Paneer</button>
   <button class="noBtn">Dal Makhani</button>
   <button class="noBtn">Kadhi Chawal</button>
   <button class="noBtn">Aloo Gobhi</button>
@@ -142,7 +119,7 @@ yesBtn.addEventListener("click", () => {
     index++;
     loadQuestion();
   } else {
-    questionEl.innerText = "💍 Dekha Mera Guess";
+    questionEl.innerText = "Dekha Mera Guess";
     answerEl.style.display = "block";
     answerEl.innerText = "❤️ Mujhe pata tha aapko Bhatta pasand hai 😆";
 
@@ -174,17 +151,19 @@ noBtns.forEach((noBtn) => {
     let x, y, overlap;
 
     do {
-      x = Math.random() * (window.innerWidth - 100);
+      x = Math.random() * (window.innerWidth - 120);
 
-      const minY = boxRect.top + 120;
-      y = minY + Math.random() * (window.innerHeight - minY - 60);
+      const minY = boxRect.top + 140;
+      y = minY + Math.random() * (window.innerHeight - minY - 80);
 
       overlap = false;
 
+      // avoid YES button
       if (isOverlapping(x, y, yesRect, w, h)) {
         overlap = true;
       }
 
+      // avoid other NO buttons
       noBtns.forEach(other => {
         if (other !== noBtn) {
           const r = other.getBoundingClientRect();
