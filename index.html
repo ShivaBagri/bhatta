@@ -1,9 +1,15 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Funny Proposal</title>
+
+<!-- 🚫 Prevent browser caching -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 
 <style>
   body {
@@ -81,7 +87,7 @@
 <div class="box" id="box">
   <div class="question" id="question">Click Start 💍</div>
 
-  <button class="yesBtn" id="yesBtn">Bhatta 💖</button>
+  <button class="yesBtn" id="yesBtn">Bhatta </button>
 
   <!-- 6 NO buttons -->
   <button class="noBtn">Matar Paneer</button>
@@ -95,6 +101,12 @@
 </div>
 
 <script>
+// 🔥 Force fresh reload (cache-busting trick)
+if (!sessionStorage.getItem("reloaded")) {
+  sessionStorage.setItem("reloaded", "true");
+  location.reload(true);
+}
+
 const questions = [
   "आपकी पसंदीदा सब्जी कौन सी है??"
 ];
@@ -158,12 +170,10 @@ noBtns.forEach((noBtn) => {
 
       overlap = false;
 
-      // avoid YES button
       if (isOverlapping(x, y, yesRect, w, h)) {
         overlap = true;
       }
 
-      // avoid other NO buttons
       noBtns.forEach(other => {
         if (other !== noBtn) {
           const r = other.getBoundingClientRect();
